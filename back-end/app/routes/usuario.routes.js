@@ -4,7 +4,8 @@ module.exports = (app) => {
   app.post("/signup", usuarioController.signUp);
   app.post("/signin", usuarioController.signIn);
   app.get("/usuarios", usuarioController.findAll);
-  app.put("/usuarios/:idUsuario", usuarioController.update);
-  app.delete("/usuarios/:idUsuario", usuarioController.delete);
+  app.get("/usuarios/:idusuario", usuarioController.findById);
+  app.put("/usuarios/:idusuario", usuarioController.update);
+  app.delete("/usuarios/:idusuario", usuarioController.delete);
   app.delete("/usuarios", usuarioController.deleteAll);
 };

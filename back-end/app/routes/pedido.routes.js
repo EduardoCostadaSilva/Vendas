@@ -7,7 +7,7 @@ module.exports = (app) => {
     [auth.verifyToken, auth.isBalcao],
     pedidoController.create
   );
-  app.get("/pedidos", [auth.verifyToken], pedidoController.findAll);
+  app.get("/pedidos", /*[auth.verifyToken],*/ pedidoController.findAll);
   app.get("/pedidos/:id", [auth.verifyToken], pedidoController.findById);
   app.put(
     "/pedidos/:id",

@@ -9,7 +9,7 @@ module.exports = (app) => {
   );
   app.get(
     "/produtos_pedidos",
-    [auth.verifyToken],
+    /*[auth.verifyToken],*/ 
     produto_pedidoController.findAll
   );
   app.get(

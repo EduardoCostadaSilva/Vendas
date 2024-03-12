@@ -15,7 +15,8 @@ Usuario.create = (usuario, result) => {
       result(null, "Usuário criado com sucesso.");
     }
   });
-};
+}
+
 Usuario.findByEmail = (email, result) => {
   sql.query("SELECT * FROM usuarios WHERE email = ?", email, (err, res) => {
     if (err) {
@@ -26,7 +27,7 @@ Usuario.findByEmail = (email, result) => {
       result({ type: "not_found" }, null);
     }
   });
-};
+}
 
 Usuario.findById = (id, result) => {
   sql.query("SELECT * FROM usuarios WHERE idusuario = ?" + id, (err, res) => {
@@ -38,9 +39,9 @@ Usuario.findById = (id, result) => {
       result({ type: "not_found" }, null);
     }
   });
-};
+}
 
-//Seleciona todos os produtos
+//Seleciona todos os usuarios
 Usuario.getAll = (result) => {
   sql.query("SELECT * FROM usuarios", (err, res) => {
     if (err) {
@@ -51,7 +52,8 @@ Usuario.getAll = (result) => {
     console.log("usuarios: ", res);
     result(null, res);
   });
-};
+}
+
 //Atualizar usuario por id
 Usuario.updateById = (id, usuario, result) => {
   sql.query(
@@ -67,8 +69,7 @@ Usuario.updateById = (id, usuario, result) => {
         console.log("Usuário atualizado: ", { idusuario: id, ...usuario });
         result(null, { idusuario: id, ...usuario });
       }
-    }
-  );
+    });
 };
 
 //Remover usuario por id

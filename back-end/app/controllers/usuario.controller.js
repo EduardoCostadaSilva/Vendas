@@ -9,7 +9,7 @@ exports.signUp = (req, res) => {
       message: "Email, senha ou tipo não enviados.",
     });
   } else {
-    usuario = new usuarioModel({
+    const usuario = new usuarioModel({
       email: req.body.email,
       senha: bcrypt.hashSync(req.body.senha, 8),
       tipo: req.body.tipo,
@@ -23,7 +23,7 @@ exports.signUp = (req, res) => {
       } else {
         res.send(data);
       }
-    });
+    })
   }
 };
 
@@ -38,11 +38,11 @@ exports.signIn = (req, res) => {
         if (err == "not_found") {
           res.status(404).send({
             message: "Não foi encontrado usuario com o email digitado.",
-          });
+          })
         } else {
           res.status(500).send({
             message: "Ocorreu um erro ao buscar email do usuário no sistema.",
-          });
+          })
         }
       } else {
         let validPassword = bcrypt.compareSync(req.body.senha, data.senha);
@@ -50,7 +50,7 @@ exports.signIn = (req, res) => {
           res.status(401).send({
             accessToken: null,
             message: "Senha inválida!",
-          });
+          })
         } else {
           let token = jwt.sign({ id: data.idusuario }, config.secret, {
             expiresIn: 86400,
@@ -90,7 +90,7 @@ exports.update = (req, res) => {
       senha: bcrypt.hashSync(req.body.senha, 8),
       tipo: req.body.tipo,
     });
-    usuarioModel.updateById(req.params.idUsuario, usuario, (err, data) => {
+    usuarioModel.updateById(req.params.idusuario, usuario, (err, data) => {
       if (err) {
         if (err.type == "not_found") {
           res.status(404).send({
@@ -109,7 +109,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  usuarioModel.remove(req.params.idUsuario, (err, data) => {
+  usuarioModel.remove(req.params.idusuario, (err, data) => {
     if (err) {
       if (err.type == "not_found") {
         res.status(404).send({ message: "Usuário não encontrado." });
@@ -132,6 +132,24 @@ exports.deleteAll = (req, res) => {
       res.send({
         message: "TODOS os Usuários deletados com sucesso",
       });
+    }
+  });
+};
+
+exports.findById = (req, res) => {
+  usuarioModel.findById(req.params.idusuario, (err, data) => {
+    if (err) {
+      if (err.type == "not_found") {
+        res.status(404).send({
+          message: "Usuário não encontrado. ID: " + req.params.idusuario
+        });
+      } else {
+        res.status(500).send({
+          message: "Erro ao retornar o usuario com o ID: " + req.params.idusuario
+        });
+      }
+    } else {
+      res.send(data);
     }
   });
 };

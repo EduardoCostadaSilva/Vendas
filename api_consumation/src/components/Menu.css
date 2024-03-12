@@ -1,0 +1,12 @@
+h1 {
+    color:black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+}
+li {
+    list-style: none;
+    font-size: 25px;
+    border:2px black solid;
+    margin-left: 20%;
+    margin-right: 20%;
+}
